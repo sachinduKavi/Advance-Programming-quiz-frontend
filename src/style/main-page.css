@@ -12,6 +12,7 @@
 .main-page .panel {
     width: 20%;
     margin: 10px;
+    padding: 0 8px;
 }
 
 .main-page .display {
