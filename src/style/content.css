@@ -1,0 +1,28 @@
+.content-border {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content-border .steps {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content-border .steps img {
+    height: 15px;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.content-border .steps p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.steps-description {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
