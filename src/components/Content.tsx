@@ -7,7 +7,7 @@ import {Input, Button} from 'antd'
 
 import '../style/content.css'
 
-export default function Content() {
+export default function Content(props: any) {
   return (
     <div className='content-border'>
         <div className="main-content">
@@ -24,7 +24,7 @@ export default function Content() {
             <SingleForm/>
 
 
-            <Button icon={<PlusOutlined/>} className='add-field-btn'>Add Field</Button>
+            <Button icon={<PlusOutlined/>} className='add-field-btn' onClick={() => props.newField(true)}>Add Field</Button>
 
             <hr />
         </div>
