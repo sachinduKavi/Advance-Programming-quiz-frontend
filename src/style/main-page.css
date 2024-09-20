@@ -95,6 +95,11 @@
 .main-page .panel {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+}
+
+.main-page .panel::-webkit-scrollbar {
+    display: none;
 }
 
 .main-page .editor-panel {

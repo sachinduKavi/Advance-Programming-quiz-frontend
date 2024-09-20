@@ -21,6 +21,17 @@
   box-sizing: border-box;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+}
+
 #root {
   width: 100vw;
   height: 100vh;

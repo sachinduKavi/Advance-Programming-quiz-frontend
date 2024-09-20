@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import FieldChoice from './FieldChoice'
 import {EditOutlined, DownOutlined, PhoneOutlined, InfoCircleOutlined, GlobalOutlined, FileTextOutlined, ProductOutlined, CheckOutlined, MailOutlined} from '@ant-design/icons'
 import CrossIcon from '../assets/icons/cross.svg'
+import MultiChoice from './FormComponents/MultiChoice'
 
 
 export default function AddPop(props: any) {
@@ -13,7 +14,7 @@ export default function AddPop(props: any) {
             props.setChoiceView(false)
         }
     }
-    
+
     // Component did mount ?
     useEffect(() => {
         document.addEventListener('mousedown', checkOutsideClick)
@@ -35,7 +36,7 @@ export default function AddPop(props: any) {
 
         switch(type) {
             case "Multiple":
-                props.setCurrentPanel(<h2>Hello Sachindu</h2>)
+                props.setCurrentPanel(<MultiChoice/>)
         }
     }
 
