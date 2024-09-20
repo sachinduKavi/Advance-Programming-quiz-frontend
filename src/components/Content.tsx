@@ -18,6 +18,7 @@ export default function Content(props: any) {
 
             <p className="steps-description">The steps users will take to complete the form</p>
 
+            <SingleForm type='welcome' title='Welcome screen'/>
 
             <SingleForm/>
             <SingleForm/>
@@ -27,6 +28,8 @@ export default function Content(props: any) {
             <Button icon={<PlusOutlined/>} className='add-field-btn' onClick={() => props.newField(true)}>Add Field</Button>
 
             <hr />
+
+            <SingleForm type='end' title='End screen'/>
         </div>
 
         <div className="content-footer">
