@@ -100,4 +100,15 @@
     margin-left: 5px;
 }
 
+.multi-choice .selected-image {
+    width: 100%;
+    height: fit-content;
+    margin-top: 5px;
+}
+
+.multi-choice .selected-image > img {
+    width: 100%;
+    opacity: 1;
+}
+
 

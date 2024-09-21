@@ -15,7 +15,7 @@ export default function MainPage() {
     const [formList, setFormList] = useState<Component>() // Dynamic form list 
     const [choiceView, setChoiceView] = useState<Boolean>(false)    
 
-    const [activeDisplay, setActiveDisplay] = useState<Component>() // What displays on the screen
+    const [activeDisplay, setActiveDisplay] = useState<JSX.Element>() // What displays on the screen
     const [currentPanel, setCurrentPanel] = useState<JSX.Element>(<div></div>) // Currently active panel
 
   return (
