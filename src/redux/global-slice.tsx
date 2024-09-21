@@ -29,9 +29,13 @@ const globalSlice = createSlice({
         setChoice: (state, action: PayloadAction<{ index: number; choice: Choice }>) => {
             const {index, choice} = action.payload
             state.choices[index] = choice
+        },
+
+        resetValues: () => {
+            return initialState
         }
     }
 })
 
-export const { setValue, setChoice } = globalSlice.actions
+export const { setValue, setChoice, resetValues } = globalSlice.actions
 export default globalSlice.reducer

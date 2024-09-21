@@ -7,6 +7,9 @@ import '../style/single-form.css'
 
 
 export default function SingleForm(props: any) {
+  const data = props.data
+
+
   if(props.type !== undefined) {
     return (
       <div className='single-form'>
@@ -22,7 +25,7 @@ export default function SingleForm(props: any) {
     <div className='single-form'>
         <img src={DotsIcons} alt="" className="move" />
         <div className="content">
-            Hello sachindu
+            {data.title}
         </div>
         <img src={CrossIcon} alt="" className="cross" />
 

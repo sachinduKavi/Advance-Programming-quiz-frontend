@@ -48,7 +48,7 @@ function MultiDisplay() {
         {
             globalValue.imageFile !== null &&
             <div className="column display-column">
-                {/* <img src={globalValue.imageFile} alt="image load failed" width='100%'/> */}
+                <img src={URL.createObjectURL(globalValue.imageFile)} alt="image load failed" width='100%'/>
             </div>
         }   
         

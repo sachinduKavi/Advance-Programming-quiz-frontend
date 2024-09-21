@@ -4,6 +4,7 @@ import {EditOutlined, DownOutlined, PhoneOutlined, InfoCircleOutlined, GlobalOut
 import CrossIcon from '../assets/icons/cross.svg'
 import MultiChoice from './FormComponents/MultiChoice'
 import MultiDisplay from './display/MultiDisplay'
+import Welcome from './display/Welcome'
 
 
 export default function AddPop(props: any) {
@@ -31,7 +32,7 @@ export default function AddPop(props: any) {
     const resetPanel = () => {
         props.setEditable(false)
         props.setCurrentPanel(null)
-        props.setActiveDisplay(null)
+        props.setActiveDisplay(<Welcome/>)
     }
 
 
@@ -45,7 +46,7 @@ export default function AddPop(props: any) {
 
         switch(type) {
             case "Multiple":
-                props.setCurrentPanel(<MultiChoice resetPanel={resetPanel}/>)
+                props.setCurrentPanel(<MultiChoice resetPanel={resetPanel} formList={props.formList}/>)
                 props.setActiveDisplay(<MultiDisplay/>)
         }
     }

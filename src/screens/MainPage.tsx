@@ -2,6 +2,7 @@ import React, {Component, useState, useEffect, useRef} from 'react'
 import CubeIcon from '../assets/icons/cube.svg'
 import SettingsIcon from '../assets/icons/settings.svg'
 import AddPop from '../components/AddPop'
+import Welcome from '../components/display/Welcome'
 
 
 import Content from '../components/Content'
@@ -13,12 +14,17 @@ export default function MainPage() {
     const [editable, setEditable] = useState<Boolean>(false)
     const [activePanel, setPanel] = useState<String>("Content")
 
-    const [formList, setFormList] = useState<Object>() // Dynamic form list 
-    
+    const [formList, setFormList] = useState<Array<Object>>([]) // Dynamic form list 
+
     const [choiceView, setChoiceView] = useState<Boolean>(false)    
 
-    const [activeDisplay, setActiveDisplay] = useState<JSX.Element>(<div>Hello</div>) // What displays on the screen
+    const [activeDisplay, setActiveDisplay] = useState<JSX.Element>(<Welcome/>) // What displays on the screen
     const [currentPanel, setCurrentPanel] = useState<JSX.Element>(<div></div>) // Currently active panel
+
+
+    useEffect(() => {
+        console.log('form list', formList)
+    })
 
   return (
 
@@ -51,7 +57,7 @@ export default function MainPage() {
 
 
                 <div className="editor-panel">
-                    {activePanel === 'Content' && <Content newField={setChoiceView}/>}
+                    {activePanel === 'Content' && <Content newField={setChoiceView} formList={formList}/>}
                 </div>
 
 
@@ -68,7 +74,7 @@ export default function MainPage() {
 
             {
                 choiceView && <AddPop choiceView={choiceView} setChoiceView={setChoiceView} setEditable={setEditable}
-                    setCurrentPanel={setCurrentPanel} setActiveDisplay={setActiveDisplay}
+                    setCurrentPanel={setCurrentPanel} setActiveDisplay={setActiveDisplay} formList={{formList: formList, setFormList: setFormList}}
                 />
 
             }

@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react'
 import {SettingOutlined, DeleteFilled, PlusOutlined, UploadOutlined, AlignLeftOutlined} from '@ant-design/icons'
 import { Button, Input, Switch } from 'antd'
 import CrossIcon from '../../assets/icons/cross.svg'
-import { setValue, setChoice } from '../../redux/global-slice'
+import { setValue, setChoice, resetValues } from '../../redux/global-slice'
 import { RootState, AppDispatch } from '../../redux/store'
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -13,6 +13,9 @@ import '../../style/multi-choice.css'
 export default function MultiChoice(props: any) {
     const globalValue = useSelector((state: RootState) => state.global);
     const dispatch: AppDispatch = useDispatch()
+    
+    const formList = props.formList.formList
+    const setFormList = props.formList.setFormList
     interface Choice {
         answer: string
         selected: boolean
@@ -27,8 +30,11 @@ export default function MultiChoice(props: any) {
 
     
     // Form is finalize to submit and save the instant
-    const finalizeValue = () => {
-        
+    const saveFinalize = () => {
+        const updateList = [...formList, globalValue]
+        setFormList(updateList)
+        props.resetPanel()
+        dispatch(resetValues())
     }
     
 
@@ -144,7 +150,7 @@ export default function MultiChoice(props: any) {
         </div>
 
         <div className="final-button row">
-            <Button className='save-btn' onClick={finalizeValue}>Save</Button>
+            <Button className='save-btn' onClick={saveFinalize}>Save</Button>
             <Button className='delete-button'>Delete</Button>
         </div>
 

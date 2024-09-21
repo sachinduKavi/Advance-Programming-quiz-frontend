@@ -20,9 +20,11 @@ export default function Content(props: any) {
 
             <SingleForm type='welcome' title='Welcome screen'/>
 
-            <SingleForm/>
-            <SingleForm/>
-            <SingleForm/>
+            {
+              props.formList.map((element: Object, index: number) => {
+                return (<SingleForm key={index} data={element}/>)
+              })
+            }
 
 
             <Button icon={<PlusOutlined/>} className='add-field-btn' onClick={() => props.newField(true)}>Add Field</Button>

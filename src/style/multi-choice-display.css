@@ -53,3 +53,32 @@
     color: rgba(100, 100, 100, 0.452);
     transform: none;
 }
+
+.multi-choice-display .welcome-title {
+    color: rgb(0, 0, 0);
+    font-size: 38px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    padding: 0px;
+    overflow-y: hidden;
+    resize: none;
+    height: 62px;
+    min-height: 62px;
+    max-height: 302px;
+}
+
+.multi-choice-display .welcome-description {color: rgb(0, 0, 0);
+    font-size: 1.75em;
+    font-family: Arial, sans-serif;
+    padding: 0px;
+    overflow-y: hidden;
+    resize: none;
+    height: 41px;
+    min-height: 41px;
+    max-height: 197px;}
+
+.multi-choice-display .welcome-btn {
+    background-color: rgb(212, 212, 212);
+    color: rgb(0, 0, 0);
+    border-radius: 16px;
+}
