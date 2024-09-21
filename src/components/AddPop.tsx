@@ -3,6 +3,7 @@ import FieldChoice from './FieldChoice'
 import {EditOutlined, DownOutlined, PhoneOutlined, InfoCircleOutlined, GlobalOutlined, FileTextOutlined, ProductOutlined, CheckOutlined, MailOutlined} from '@ant-design/icons'
 import CrossIcon from '../assets/icons/cross.svg'
 import MultiChoice from './FormComponents/MultiChoice'
+import MultiDisplay from './display/MultiDisplay'
 
 
 export default function AddPop(props: any) {
@@ -26,6 +27,14 @@ export default function AddPop(props: any) {
     }, [props.choiceView])
 
 
+    // Reset all the panels & go back to dashboard
+    const resetPanel = () => {
+        props.setEditable(false)
+        props.setCurrentPanel(null)
+        props.setActiveDisplay(null)
+    }
+
+
 
     // User clicks on one of the choice 
     const addField = (type: string) => {
@@ -36,7 +45,8 @@ export default function AddPop(props: any) {
 
         switch(type) {
             case "Multiple":
-                props.setCurrentPanel(<MultiChoice/>)
+                props.setCurrentPanel(<MultiChoice resetPanel={resetPanel}/>)
+                props.setActiveDisplay(<MultiDisplay/>)
         }
     }
 

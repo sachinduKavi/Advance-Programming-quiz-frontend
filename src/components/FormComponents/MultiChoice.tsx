@@ -10,7 +10,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import '../../style/multi-choice.css'
 
 
-export default function MultiChoice() {
+export default function MultiChoice(props: any) {
     const globalValue = useSelector((state: RootState) => state.global);
     const dispatch: AppDispatch = useDispatch()
     interface Choice {
@@ -23,6 +23,12 @@ export default function MultiChoice() {
     // Update global value
     const updateGlobal = (name: any, value: any) => {
         dispatch(setValue({[name]: value}))
+    }
+
+    
+    // Form is finalize to submit and save the instant
+    const finalizeValue = () => {
+        
     }
     
 
@@ -38,7 +44,7 @@ export default function MultiChoice() {
                 <p className='form-type'>MultipleChoice</p>
             </div>
 
-            <Button className='square-btn'>
+            <Button className='square-btn' onClick={() => {props.resetPanel()}}>
                 <img src={CrossIcon} alt="cross icon" />
             </Button>
             
@@ -129,16 +135,16 @@ export default function MultiChoice() {
                 <div className="row" style={{width: 'fit-content'}}>
                     <Button onClick={() => {
                         updateGlobal('placement', true)
-                    }}><AlignLeftOutlined/><div className='black-box'></div></Button>
+                    }} disabled={globalValue.placement}><AlignLeftOutlined/><div className='black-box'></div></Button>
                     <Button onClick={() => {
                         updateGlobal('placement', false)
-                    }}><div className='black-box'></div><AlignLeftOutlined/></Button>
+                    }} disabled={!globalValue.placement}><div className='black-box'></div><AlignLeftOutlined/></Button>
                 </div>
             </div>
         </div>
 
         <div className="final-button row">
-            <Button className='save-btn'>Save</Button>
+            <Button className='save-btn' onClick={finalizeValue}>Save</Button>
             <Button className='delete-button'>Delete</Button>
         </div>
 

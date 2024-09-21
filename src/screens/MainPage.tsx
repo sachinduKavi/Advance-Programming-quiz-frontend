@@ -12,10 +12,12 @@ export default function MainPage() {
 
     const [editable, setEditable] = useState<Boolean>(false)
     const [activePanel, setPanel] = useState<String>("Content")
-    const [formList, setFormList] = useState<Component>() // Dynamic form list 
+
+    const [formList, setFormList] = useState<Object>() // Dynamic form list 
+    
     const [choiceView, setChoiceView] = useState<Boolean>(false)    
 
-    const [activeDisplay, setActiveDisplay] = useState<JSX.Element>() // What displays on the screen
+    const [activeDisplay, setActiveDisplay] = useState<JSX.Element>(<div>Hello</div>) // What displays on the screen
     const [currentPanel, setCurrentPanel] = useState<JSX.Element>(<div></div>) // Currently active panel
 
   return (
@@ -61,12 +63,12 @@ export default function MainPage() {
         }
 
             <div className="display">
-
+                {activeDisplay}
             </div>
 
             {
                 choiceView && <AddPop choiceView={choiceView} setChoiceView={setChoiceView} setEditable={setEditable}
-                    setCurrentPanel={setCurrentPanel}
+                    setCurrentPanel={setCurrentPanel} setActiveDisplay={setActiveDisplay}
                 />
 
             }
