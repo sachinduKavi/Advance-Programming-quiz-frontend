@@ -2,19 +2,31 @@ import React, {useState, useRef} from 'react'
 import {SettingOutlined, DeleteFilled, PlusOutlined, UploadOutlined, AlignLeftOutlined} from '@ant-design/icons'
 import { Button, Input, Switch } from 'antd'
 import CrossIcon from '../../assets/icons/cross.svg'
+import { setValue, setChoice } from '../../redux/global-slice'
+import { RootState, AppDispatch } from '../../redux/store'
+import {useSelector, useDispatch} from 'react-redux'
+import MultiChoiceInterface from '../../DataModels/MultiChoiceModel'
 
 import '../../style/multi-choice.css'
 
 
 export default function MultiChoice() {
+    const globalValue = useSelector((state: RootState) => state.global);
+    const dispatch: AppDispatch = useDispatch()
     interface Choice {
         answer: string
         selected: boolean
     }
 
+
     const imageRef = useRef<HTMLInputElement | null>(null)
     const [choices, setChoices] = useState<Array<Choice>>([])
     const [uploadImage, setUploadImage] = useState<Blob | MediaSource | null>(null)
+
+    // Update global value
+    const updateGlobal = (name: any, value: any) => {
+        dispatch(setValue({[name]: value}))
+    }
     
 
   return (
@@ -38,27 +50,32 @@ export default function MultiChoice() {
 
         <div className="content">
             <p>title</p>
-            <Input/>
+            <Input value={globalValue.title} onChange={(e) => {
+                updateGlobal('title', e.target.value)
+            }}/>
 
             <p>description</p>
-            <Input/>
+            <Input value={globalValue.description} onChange={(e) => {
+                updateGlobal('description', e.target.value)
+            }}/>
 
 
-            <p>choice</p>
+            <p>choice {globalValue.choices.length}</p>
 
             {
-                choices.map((element, index) => {
+                globalValue.choices.map((element: Choice, index: number) => {
                     return (
                         <div className="row" key={index}>
                             <Input value={element.answer} onChange={(e) => {
-                                const updateChoice = [...choices]
-                                updateChoice[index].answer = e.target.value
-                                setChoices(updateChoice)
+                                let updateChoice = {
+                                    ...element, answer: e.target.value
+                                }
+                                dispatch(setChoice({index, choice: updateChoice})) // Updating global choice array
                             }}/> 
                             <Button className='square-btn' onClick={() => {
-                                const updateChoice = [...choices]
+                                let updateChoice = [...globalValue.choices]
                                 updateChoice.splice(index, 1)
-                                setChoices(updateChoice)
+                                updateGlobal('choices', updateChoice)
                             }}><DeleteFilled/></Button>
                         </div>
                     )
@@ -67,10 +84,12 @@ export default function MultiChoice() {
             
 
             <Button className='square-btn delete-btn' onClick={() => {
-                setChoices([...choices, {
+                const choiceUpdate = [...globalValue.choices, {
                     answer: '',
                     selected: false
-                }])
+                }]
+            
+                updateGlobal('choices', choiceUpdate)
             }}><PlusOutlined style={{color: 'white'}}/></Button>
 
 

@@ -1,9 +1,21 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import MultiChoiceInterface from '../DataModels/MultiChoiceModel'
 
 
-const initialState = {
-    value: ''
+interface Choice {
+    answer: string
+    selected: boolean
+}
+
+const initialState:MultiChoiceInterface = {
+        title: '',
+        description: '',
+        choices: [],
+        multiple: false,
+        required: false,
+        imageFile: null,
+        placement: false
+   
 }
 
 const globalSlice = createSlice({
@@ -11,10 +23,15 @@ const globalSlice = createSlice({
     initialState,
     reducers: {
         setValue: (state, action) => {
-            state.value = action.payload
+            return {...state, ...action.payload};
+        },
+
+        setChoice: (state, action: PayloadAction<{ index: number; choice: Choice }>) => {
+            const {index, choice} = action.payload
+            state.choices[index] = choice
         }
     }
 })
 
-export const { setValue } = globalSlice.actions
+export const { setValue, setChoice } = globalSlice.actions
 export default globalSlice.reducer

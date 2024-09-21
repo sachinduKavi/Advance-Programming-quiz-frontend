@@ -1,17 +1,17 @@
+interface Choice {
+    answer: string
+    selected: boolean
+}
+
 interface MultiChoiceInterface {
     title: string
     description: string
-    choices: Array<
-        {
-            choice: string,
-            selected: boolean
-        }
-    >
+    choices: Array<Choice>
 
     multiple: boolean
     required: boolean
-    link: any
     placement: boolean
+    imageFile: File | null
 }
 
 export default MultiChoiceInterface
