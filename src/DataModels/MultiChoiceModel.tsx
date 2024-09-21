@@ -11,7 +11,7 @@ interface MultiChoiceInterface {
     multiple: boolean
     required: boolean
     placement: boolean
-    imageFile: File | null
+    imageFile: File | null | Blob
 }
 
 export default MultiChoiceInterface

@@ -5,7 +5,7 @@ import CrossIcon from '../../assets/icons/cross.svg'
 import { setValue, setChoice } from '../../redux/global-slice'
 import { RootState, AppDispatch } from '../../redux/store'
 import {useSelector, useDispatch} from 'react-redux'
-import MultiChoiceInterface from '../../DataModels/MultiChoiceModel'
+
 
 import '../../style/multi-choice.css'
 
@@ -20,9 +20,6 @@ export default function MultiChoice() {
 
 
     const imageRef = useRef<HTMLInputElement | null>(null)
-    const [choices, setChoices] = useState<Array<Choice>>([])
-    const [uploadImage, setUploadImage] = useState<Blob | MediaSource | null>(null)
-
     // Update global value
     const updateGlobal = (name: any, value: any) => {
         dispatch(setValue({[name]: value}))
@@ -90,17 +87,22 @@ export default function MultiChoice() {
                 }]
             
                 updateGlobal('choices', choiceUpdate)
-            }}><PlusOutlined style={{color: 'white'}}/></Button>
+
+                }}><PlusOutlined style={{color: 'white'}}/></Button>
 
 
             <div className="row selection-row">
                 <p>allow multiple selection</p>
-                <Switch size='small'/>
+                <Switch size='small' onChange={(e) => {
+                    updateGlobal('multiple', e)
+                }} checked={globalValue.multiple}/>
             </div>
 
             <div className="row selection-row">
                 <p>required</p>
-                <Switch size='small'/>
+                <Switch size='small' onChange={(e) => {
+                    updateGlobal('required', e)
+                }} checked={globalValue.required}/>
             </div>
 
             
@@ -116,8 +118,8 @@ export default function MultiChoice() {
 
             <div className="selected-image">
                 {
-                    uploadImage &&
-                    <img src={URL.createObjectURL(uploadImage)} alt="" />
+                    globalValue.imageFile &&
+                    <img src={URL.createObjectURL(globalValue.imageFile)} alt="" />
                 }
             </div>
             
@@ -125,8 +127,12 @@ export default function MultiChoice() {
                 <p>placement</p>
 
                 <div className="row" style={{width: 'fit-content'}}>
-                    <Button><AlignLeftOutlined/><div className='black-box'></div></Button>
-                    <Button><div className='black-box'></div><AlignLeftOutlined/></Button>
+                    <Button onClick={() => {
+                        updateGlobal('placement', true)
+                    }}><AlignLeftOutlined/><div className='black-box'></div></Button>
+                    <Button onClick={() => {
+                        updateGlobal('placement', false)
+                    }}><div className='black-box'></div><AlignLeftOutlined/></Button>
                 </div>
             </div>
         </div>
@@ -140,7 +146,7 @@ export default function MultiChoice() {
             // Get the file selected 
             const selectedFile: File | null = e.target.files ? e.target.files[0] : null
             if(selectedFile !== null)
-                setUploadImage(selectedFile)
+                updateGlobal('imageFile', selectedFile)
             
         }}/>
 
