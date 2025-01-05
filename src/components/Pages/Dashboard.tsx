@@ -2,8 +2,10 @@
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Dashboard.css'
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 
-const QuizDashboard = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
 
   // quizzes in database
@@ -15,9 +17,11 @@ const QuizDashboard = () => {
   ];
 
   return (
+    <>
+    <Navbar/>
     <div className="container py-5">
       
-      <div className="mb-4 text-center">
+      <div className="mb-4 text-center " id="new_quiz">
         <button
           className="btn btn-dark fw-bold"
           onClick={() => navigate('/add-quiz')}
@@ -35,7 +39,7 @@ const QuizDashboard = () => {
               <div className="card-body">
                 <h5 className="card-title">{quiz.title}</h5>
                 <button
-                  className="btn btn-dark mt-3"
+                  className="btn btn-dark mt-3 "
                   onClick={() => navigate(quiz.link)}
                 >
                   Access Now
@@ -46,7 +50,9 @@ const QuizDashboard = () => {
         ))}
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
-export default QuizDashboard;
+export default Dashboard;
