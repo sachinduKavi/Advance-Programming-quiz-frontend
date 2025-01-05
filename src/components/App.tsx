@@ -2,6 +2,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MainPage from './screens/MainPage'
 import Home from './components/Pages/Home'
+import Dashboard from './Pages/Dashboard'
+import About from './Pages/About'
+
+
 
 
 function App() {
@@ -11,6 +15,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path='/about' element={<About/>}/>
           <Route path='/mainpage' element={<MainPage/>}/>
           
 
