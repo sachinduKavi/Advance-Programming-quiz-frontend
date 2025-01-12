@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Signin.css';
+import {Input, Form, Button} from 'antd'
+import { registerUserQuery } from '../../services/userQueries';
 
 const TabbedSearchForm = () => {
     const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
@@ -9,6 +11,20 @@ const TabbedSearchForm = () => {
     const handleTabSwitch = (tab: 'signin' | 'signup') => {
         setActiveTab(tab);
     };
+
+
+    const [signInFormRef] = Form.useForm();
+    // Handles sign in
+    const handleSignUp = async (values: Object) => {
+        const response = await registerUserQuery(values)
+        if(response.status === 201) {
+            // User created successfully put user created successfully message
+            
+        } else {
+            // Error creating user, show error message
+
+        }
+    }
 
     return (
         <>
@@ -58,49 +74,100 @@ const TabbedSearchForm = () => {
                     </form>
                 )}
                 {activeTab === 'signup' && (
-                    <form className="row col-md-12 g-3 align-items-end bg-white">
-                        <div className="col-md-12">
-                            <label htmlFor="name" className="form-label fw-bold ">
-                                Full Name
-                            </label>
-                            <input type="text" className="form-control" id="name" name="name" placeholder="Mahindha Rajapaksha" />
-                        </div>
-                        
-                        <div className="col-md-12">
-                            <label htmlFor="email" className="form-label fw-bold ">
-                                Email
-                            </label>
-                            <input type="text" className="form-control" id="email" name="email" placeholder='mahindha@gmail.com'/>
-                        </div>
-                        <div className="col-md-12">
-                            <label htmlFor="username" className="form-label fw-bold ">
-                               User Name
-                            </label>
-                            <input type="text" className="form-control" id="username" name="username" placeholder="mahindharajapaksha" />
-                        </div>
-                        <div className="col-md-12">
-                            <label htmlFor="phone" className="form-label fw-bold ">
-                               Phone Number
-                            </label>
-                            <input type="text" className="form-control" id="phone" name="phone" placeholder="0712918247" />
-                        </div>
-                        <div className="col-md-12">
-                            <label htmlFor="password" className="form-label fw-bold ">
-                               Password
-                            </label>
-                            <input type="password" className="form-control" id="password" name="password"  placeholder='password'/>
-                        </div>
-                        <div className="col-md-12">
-                            <label htmlFor="confirmpassword" className="form-label fw-bold ">
-                            Confirm Password
-                            </label>
-                            <input type="password" className="form-control" id="confirmpassword" name="confirmpassword" placeholder='confirmpassword' />
-                        </div>
-                       
-                        <div className="col-md-12 pt-3">
-                            <button type="submit" className="btn btn-danger w-100">Sign Up</button>
-                        </div>
-                    </form>
+                    <Form
+                    layout="vertical"
+                    form={signInFormRef}
+                    onFinish={handleSignUp}
+                    className="row col-md-12 g-3 align-items-end bg-white"
+                >
+                    <Form.Item
+                        label="Full Name"
+                        name="name"
+                        rules={[
+                            { required: true, message: 'Please enter your full name' },
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input placeholder="Mahindha Rajapaksha" />
+                    </Form.Item>
+        
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[
+                            { required: true, message: 'Please enter your email' },
+                            { type: 'email', message: 'Please enter a valid email' },
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input placeholder="mahindha@gmail.com" />
+                    </Form.Item>
+        
+                    <Form.Item
+                        label="User Name"
+                        name="username"
+                        rules={[
+                            { required: true, message: 'Please enter your username' },
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input placeholder="mahindharajapaksha" />
+                    </Form.Item>
+        
+                    <Form.Item
+                        label="Phone Number"
+                        name="phoneNumber"
+                        rules={[
+                            { required: true, message: 'Please enter your phone number' },
+                            {
+                                message: 'Please enter a valid phone number',
+                            },
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input placeholder="0712918247" />
+                    </Form.Item>
+        
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                            { required: true, message: 'Please enter your password' },
+                            { min: 6, message: 'Password must be at least 6 characters' },
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input.Password placeholder="password" />
+                    </Form.Item>
+        
+                    <Form.Item
+                        label="Confirm Password"
+                        name="confirmpassword"
+                        dependencies={['password']}
+                        rules={[
+                            { required: true, message: 'Please confirm your password' },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(
+                                        new Error('Passwords do not match')
+                                    );
+                                },
+                            }),
+                        ]}
+                        className="col-md-12"
+                    >
+                        <Input.Password placeholder="confirmpassword" />
+                    </Form.Item>
+        
+                    <Form.Item className="col-md-12 pt-3">
+                        <Button type="primary" htmlType="submit" className="w-100">
+                            Sign Up
+                        </Button>
+                    </Form.Item>
+                </Form>
                 )}
             </div>
         </div>
