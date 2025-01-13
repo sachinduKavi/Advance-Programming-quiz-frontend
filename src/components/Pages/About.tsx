@@ -10,7 +10,7 @@ function About() {
   return (
     <>
     <Navbar/>
-    <div className="container py-5" >
+    <div className="container py-5 " >
       <div className="row">
         <div className="col-md-8 mx-auto text-center" id="about_content">
           <h2 className="fw-bold">Who We Are</h2>

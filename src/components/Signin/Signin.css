@@ -1,17 +1,12 @@
-body{
+.container-fluid {
     background: rgb(239, 238, 238);
 }
-#background{
+
+#background {
     background: rgb(239, 238, 238);
-    padding-bottom: 5%;
+    min-height: 100vh;
+    overflow-y: auto;
 }
-.container {
-    max-width: 600px;
-    margin-left: 5%;
-    
-}
-
-
 
 .nav-tabs .nav-link {
     cursor: pointer;
@@ -31,59 +26,19 @@ body{
 }
 
 .tab-content {
-    
-   
     background: #ffffff;
     border-radius: 0.5rem;
     margin-top: 0px;
-   
+    padding-left: 50px; 
 }
 
-.form-control {
-    border-radius: 0.25rem;
-    padding: 0.75rem;
+.img-fluid {
+    object-fit: cover;
 }
 
-.btn-danger {
-    background-color: #ff3c00;
-    border-color: #ff3c00;
-    transition: background-color 0.3s, border-color 0.3s;
-    height: 50px;
+.form-container .ant-form-item {
+    padding-left: 20px;
+    
 }
 
-.btn-danger:hover {
-    background-color: #e64a19;
-    border-color: #d84315;
-}
 
-@media (min-width: 768px) and (max-width: 950px){
-    .nav-tabs .nav-link {
-        font-size: 0.9rem;
-        padding: 0.8rem 1rem;
-        margin-top: -150px;
-    }
-    .tab-content {
-        margin-top: -102px;
-    }
-    .form-label{
-        font-size: 0.8rem;
-    }
-}
-@media (max-width: 768px) {
-    .nav-tabs .nav-link {
-        font-size: 0.9rem;
-        padding: 0.8rem 1rem;
-        margin-top: -150px;
-    }
-    .tab-content {
-        margin-top: -102px;
-    }
-
-    .form-label {
-        font-size: 0.9rem;
-    }
-
-    .btn-danger {
-        font-size: 0.9rem;
-    }
-}
