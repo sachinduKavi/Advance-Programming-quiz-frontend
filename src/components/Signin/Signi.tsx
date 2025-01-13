@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Signin.css';
+import { useNavigate } from 'react-router-dom';
+import toast, {Toaster} from 'react-hot-toast';
 import {Input, Form, Button} from 'antd'
-import { registerUserQuery } from '../../services/userQueries';
+import { authorizeUserQuery, registerUserQuery } from '../../services/userQueries';
 
 const TabbedSearchForm = () => {
     const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
+    const navigate = useNavigate()
 
     // Handles tab switching
     const handleTabSwitch = (tab: 'signin' | 'signup') => {
         setActiveTab(tab);
     };
+
 
 
     const [signInFormRef] = Form.useForm();
@@ -19,9 +23,25 @@ const TabbedSearchForm = () => {
         const response = await registerUserQuery(values)
         if(response.status === 201) {
             // User created successfully put user created successfully message
-            
+            toast.success('User created successfully.')
         } else {
             // Error creating user, show error message
+            toast.error('Something went wrong, please try again.')
+        }
+    }
+
+
+    // Handles sign in
+    const [signInForm] = Form.useForm()
+    const authorizeUser = async (values: object) => {
+        console.log(values)
+        const response = await authorizeUserQuery(values)
+        console.log(response)
+        if(response.status === 200 && response.data.proceed) {
+            // User authorized 
+            // Redirect to dashboard
+            navigate('/dashboard')
+        } else {
 
         }
     }
@@ -54,24 +74,38 @@ const TabbedSearchForm = () => {
             {/* Tab Content */}
             <div className="tab-content p-4 border border-top-0 shadow-sm ">
                 {activeTab === 'signin' && (
-                    <form className="row col-md-12 g-3 align-items-end bg-white">
-                        <div className="col-md-12">
-                            <label htmlFor="username" className="form-label fw-bold ">
-                               User Name
-                            </label>
-                            <input type="text" className="form-control" id="username" name="username" placeholder="testuser@gamil.com" />
-                        </div>
-                        <div className="col-md-12">
-                            <label htmlFor="password" className="form-label fw-bold ">
-                                Password
-                            </label>
-                            <input type="password" className="form-control" id="password" name="passowrd" placeholder="password"/>
-                        </div>
-                        
-                        <div className="col-md-12">
-                            <button type="submit" className="btn btn-danger w-100">Sign In</button>
-                        </div>
-                    </form>
+                    <div className="row col-md-12 g-3 align-items-end bg-white">
+                    <Form
+                        form={signInForm}
+                        layout="vertical"
+                        onFinish={authorizeUser}
+                        className="col-md-12"
+                    >
+                        <Form.Item
+                            label={<span className="fw-bold">User Name</span>}
+                            name="username"
+                            rules={[
+                                { required: true, message: 'Please input your username!' }
+                            ]}
+                        >
+                            <Input placeholder="testuser@gmail.com" />
+                        </Form.Item>
+        
+                        <Form.Item
+                            label={<span className="fw-bold">Password</span>}
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password placeholder="password" />
+                        </Form.Item>
+        
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" className="w-100" danger>
+                                Sign In
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
                 )}
                 {activeTab === 'signup' && (
                     <Form
