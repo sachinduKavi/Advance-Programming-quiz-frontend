@@ -42,7 +42,7 @@ const TabbedSearchForm = () => {
             // Redirect to dashboard
             navigate('/dashboard')
         } else {
-
+            toast.error('Invalid credentials.')
         }
     }
 
