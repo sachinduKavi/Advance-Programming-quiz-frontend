@@ -1,7 +1,7 @@
 // import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MainPage from './screens/MainPage'
-import Home from './components/Pages/Home'
+import Home from './Pages/Home'
 import Dashboard from './Pages/Dashboard'
 import About from './Pages/About'
 
