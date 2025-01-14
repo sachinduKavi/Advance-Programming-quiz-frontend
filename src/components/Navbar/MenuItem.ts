@@ -11,7 +11,7 @@ export const MenuItems= [
   },
   {
       title: "Terms and Conditions ",
-      url :"/conditions ",
+      url :"/dashboard",
       className: "nav-link"
   }
   ]
